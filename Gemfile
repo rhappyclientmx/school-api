@@ -4,22 +4,27 @@ ruby '2.4.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 
+gem 'active_bootstrap_skin'
 gem 'activeadmin', '~> 1.4.3'
 gem 'aws-sdk-s3', '~> 1', require: false
 gem 'bootsnap', '~> 1.3.0'
+gem 'bootstrap-sass'
+gem 'country_select', '~> 4.0'
 gem 'delayed_job_active_record', '~> 4.1.3'
 gem 'devise', '~> 4.4.3'
 gem 'devise_token_auth', '~> 0.1.43'
 gem 'draper', '~> 3.0.0'
+gem 'fast_jsonapi', '1.5'
 gem 'figaro', '~> 1.1.1'
+gem 'forest_liana'
 gem 'haml-rails', '~> 1.0.0'
-gem 'jbuilder', '~> 2.7.0'
-gem 'oj', '~> 2.17.5'
 gem 'pg', '~> 0.18.2'
 gem 'pry-rails', '~> 0.3.6'
 gem 'puma', '~> 3.0'
 gem 'rack-cors', '~> 0.4.0'
 gem 'sendgrid', '~> 1.2.4'
+
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

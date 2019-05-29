@@ -15,6 +15,8 @@ Rails.application.routes.draw do
           get :profile
         end
       end
+      resources :schools, only: %i[index show]
+      resources :groups, except: %i[new edit]
     end
   end
 end

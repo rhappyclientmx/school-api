@@ -1,0 +1,1 @@
+JSONAPI_MEDIA_TYPE = 'application/vnd.api+json'

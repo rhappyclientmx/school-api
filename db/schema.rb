@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_02_142200) do
+ActiveRecord::Schema.define(version: 2019_04_16_200329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,32 @@ ActiveRecord::Schema.define(version: 2018_11_02_142200) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.bigint "school_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "index_groups_on_school_id"
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string "name"
+    t.string "country"
+    t.string "state"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.bigint "school_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "index_teachers_on_school_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email"
     t.string "encrypted_password", default: "", null: false
@@ -88,9 +114,14 @@ ActiveRecord::Schema.define(version: 2018_11_02_142200) do
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.json "tokens"
+    t.bigint "school_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["school_id"], name: "index_users_on_school_id"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "groups", "schools"
+  add_foreign_key "teachers", "schools"
+  add_foreign_key "users", "schools"
 end

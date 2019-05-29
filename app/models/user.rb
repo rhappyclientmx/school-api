@@ -7,8 +7,9 @@
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
+#  allow_password_change  :boolean          default(FALSE)
 #  remember_created_at    :datetime
-#  sign_in_count          :integer          default("0"), not null
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
@@ -21,11 +22,13 @@
 #  provider               :string           default("email"), not null
 #  uid                    :string           default(""), not null
 #  tokens                 :json
+#  school_id              :integer
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_school_id             (school_id)
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 
@@ -39,6 +42,8 @@ class User < ApplicationRecord
   validates :uid, uniqueness: { scope: :provider }
 
   before_validation :init_uid
+
+  belongs_to :school
 
   def full_name
     return username if first_name.blank?
