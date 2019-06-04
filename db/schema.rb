@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_04_211437) do
+ActiveRecord::Schema.define(version: 2019_06_04_212855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -70,12 +70,35 @@ ActiveRecord::Schema.define(version: 2019_06_04_211437) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "departments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.integer "capacity"
+    t.text "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "school_id"
+    t.index ["school_id"], name: "index_departments_on_school_id"
+  end
+
   create_table "groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "school_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_groups_on_school_id"
+  end
+
+  create_table "notices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "school_id"
+    t.string "title"
+    t.text "details"
+    t.bigint "user_id"
+    t.date "due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "index_notices_on_school_id"
+    t.index ["user_id"], name: "index_notices_on_user_id"
   end
 
   create_table "parents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -117,8 +140,16 @@ ActiveRecord::Schema.define(version: 2019_06_04_211437) do
     t.text "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code"
     t.index ["parent_id"], name: "index_students_on_parent_id"
     t.index ["school_id"], name: "index_students_on_school_id"
+  end
+
+  create_table "subject_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -165,7 +196,10 @@ ActiveRecord::Schema.define(version: 2019_06_04_211437) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "departments", "schools"
   add_foreign_key "groups", "schools"
+  add_foreign_key "notices", "schools"
+  add_foreign_key "notices", "users"
   add_foreign_key "parents", "schools"
   add_foreign_key "students", "parents"
   add_foreign_key "students", "schools"
