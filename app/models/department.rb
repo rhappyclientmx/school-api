@@ -1,21 +1,20 @@
 # == Schema Information
 #
-# Table name: groups
+# Table name: departments
 #
 #  id         :uuid             not null, primary key
-#  school_id  :uuid
 #  name       :string
+#  start_date :date
+#  capacity   :integer
+#  details    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  school_id  :uuid
 #
 # Indexes
 #
-#  index_groups_on_school_id  (school_id)
+#  index_departments_on_school_id  (school_id)
 #
 
-FactoryBot.define do
-  factory :group do
-    school nil
-    name "MyString"
-  end
+class Department < ApplicationRecord
 end

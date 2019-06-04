@@ -2,8 +2,8 @@
 #
 # Table name: parents
 #
-#  id            :integer          not null, primary key
-#  school_id     :integer
+#  id            :uuid             not null, primary key
+#  school_id     :uuid
 #  guardian_name :string
 #  first_name    :string
 #  last_name     :string
