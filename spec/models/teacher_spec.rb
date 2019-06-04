@@ -8,6 +8,14 @@
 #  school_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  religion   :string
+#  join_date  :date
+#  email      :string
+#  section    :string
+#  address    :string
+#  phone      :string
+#  birth_date :date
+#  gender     :string
 #
 # Indexes
 #

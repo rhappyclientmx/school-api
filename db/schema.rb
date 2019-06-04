@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_16_200329) do
+ActiveRecord::Schema.define(version: 2019_05_30_003857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,20 @@ ActiveRecord::Schema.define(version: 2019_04_16_200329) do
     t.index ["school_id"], name: "index_groups_on_school_id"
   end
 
+  create_table "parents", force: :cascade do |t|
+    t.bigint "school_id"
+    t.string "guardian_name"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "profession"
+    t.string "email"
+    t.string "phone"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "index_parents_on_school_id"
+  end
+
   create_table "schools", force: :cascade do |t|
     t.string "name"
     t.string "country"
@@ -85,12 +99,40 @@ ActiveRecord::Schema.define(version: 2019_04_16_200329) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "students", force: :cascade do |t|
+    t.bigint "school_id"
+    t.bigint "parent_id"
+    t.string "first_name"
+    t.string "father_name"
+    t.string "mother_name"
+    t.date "birth_date"
+    t.string "religion"
+    t.string "email"
+    t.date "admission_date"
+    t.string "address"
+    t.string "phone"
+    t.string "register_number"
+    t.text "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_students_on_parent_id"
+    t.index ["school_id"], name: "index_students_on_school_id"
+  end
+
   create_table "teachers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.bigint "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "religion"
+    t.date "join_date"
+    t.string "email"
+    t.string "section"
+    t.string "address"
+    t.string "phone"
+    t.date "birth_date"
+    t.string "gender"
     t.index ["school_id"], name: "index_teachers_on_school_id"
   end
 
@@ -122,6 +164,9 @@ ActiveRecord::Schema.define(version: 2019_04_16_200329) do
   end
 
   add_foreign_key "groups", "schools"
+  add_foreign_key "parents", "schools"
+  add_foreign_key "students", "parents"
+  add_foreign_key "students", "schools"
   add_foreign_key "teachers", "schools"
   add_foreign_key "users", "schools"
 end
