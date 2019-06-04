@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_30_003857) do
+ActiveRecord::Schema.define(version: 2019_06_04_211437) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -68,16 +70,16 @@ ActiveRecord::Schema.define(version: 2019_05_30_003857) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.bigint "school_id"
+  create_table "groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "school_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_groups_on_school_id"
   end
 
-  create_table "parents", force: :cascade do |t|
-    t.bigint "school_id"
+  create_table "parents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "school_id"
     t.string "guardian_name"
     t.string "first_name"
     t.string "last_name"
@@ -90,7 +92,7 @@ ActiveRecord::Schema.define(version: 2019_05_30_003857) do
     t.index ["school_id"], name: "index_parents_on_school_id"
   end
 
-  create_table "schools", force: :cascade do |t|
+  create_table "schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "country"
     t.string "state"
@@ -99,9 +101,9 @@ ActiveRecord::Schema.define(version: 2019_05_30_003857) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "students", force: :cascade do |t|
-    t.bigint "school_id"
-    t.bigint "parent_id"
+  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "school_id"
+    t.uuid "parent_id"
     t.string "first_name"
     t.string "father_name"
     t.string "mother_name"
@@ -119,10 +121,10 @@ ActiveRecord::Schema.define(version: 2019_05_30_003857) do
     t.index ["school_id"], name: "index_students_on_school_id"
   end
 
-  create_table "teachers", force: :cascade do |t|
+  create_table "teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.bigint "school_id"
+    t.uuid "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "religion"
@@ -156,7 +158,7 @@ ActiveRecord::Schema.define(version: 2019_05_30_003857) do
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.json "tokens"
-    t.bigint "school_id"
+    t.uuid "school_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["school_id"], name: "index_users_on_school_id"

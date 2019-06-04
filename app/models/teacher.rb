@@ -2,10 +2,10 @@
 #
 # Table name: teachers
 #
-#  id         :integer          not null, primary key
+#  id         :uuid             not null, primary key
 #  first_name :string
 #  last_name  :string
-#  school_id  :integer
+#  school_id  :uuid
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  religion   :string

@@ -43,6 +43,8 @@ module App
     config.generators do |g|
       g.test_framework :rspec
       g.fixture_replacement :factory_bot, dir: 'spec/factories'
+      g.orm :active_record, primary_key_type: :uuid
+      g.orm :active_record, foreign_key_type: :uuid
     end
   end
 end

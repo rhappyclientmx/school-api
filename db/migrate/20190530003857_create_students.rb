@@ -1,8 +1,8 @@
 class CreateStudents < ActiveRecord::Migration[5.2]
   def change
-    create_table :students do |t|
-      t.references :school, foreign_key: true
-      t.references :parent, foreign_key: true
+    create_table :students, id: :uuid do |t|
+      t.references :school, foreign_key: true, type: :uuid, index: true
+      t.references :parent, foreign_key: true, type: :uuid, index: true
       t.string :first_name
       t.string :father_name
       t.string :mother_name

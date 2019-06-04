@@ -2,7 +2,7 @@
 #
 # Table name: schools
 #
-#  id         :integer          not null, primary key
+#  id         :uuid             not null, primary key
 #  name       :string
 #  country    :string
 #  state      :string

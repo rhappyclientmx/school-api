@@ -2,9 +2,9 @@
 #
 # Table name: students
 #
-#  id              :integer          not null, primary key
-#  school_id       :integer
-#  parent_id       :integer
+#  id              :uuid             not null, primary key
+#  school_id       :uuid
+#  parent_id       :uuid
 #  first_name      :string
 #  father_name     :string
 #  mother_name     :string

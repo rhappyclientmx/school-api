@@ -2,8 +2,8 @@
 #
 # Table name: groups
 #
-#  id         :integer          not null, primary key
-#  school_id  :integer
+#  id         :uuid             not null, primary key
+#  school_id  :uuid
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
